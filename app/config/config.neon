@@ -1,0 +1,51 @@
+	parameters:
+		smtp:
+			host: ''
+			username: ''
+			password: ''
+			secure: 'ssl'
+		webloader:
+			css:
+				- css/all.min.css
+				- css/bootstrap.min.css
+				- css/main.css
+
+			js:
+				- js/App.js
+				- js/jquery-3.2.1.min.js
+				- js/bootstrap.bundle.min.js
+				- js/nette.ajax.js
+				- js/netteForms.js
+				- js/main.js
+
+	php:
+		date.timezone: Europe/Prague
+
+	database:
+		default:
+			dsn: '%database.driver%:host=%database.host%;dbname=%database.database%'
+			user: '%database.user%'
+			password: '%database.password%'
+			debugger: true
+			explain: true
+			options:
+				lazy: yes
+
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\*Module\Presenters\*Presenter
+
+
+	session:
+		expiration: 90 days
+	services:
+		database: @database.default
+		- App\Router\RouterFactory::createRouter
+		# Components factory
+		HeaderFactory:
+			implement: IHeaderCssFactory
+			arguments: [%webloader.css%]
+		FooterFactory:
+			implement: IFooterJsFactory
+			arguments: [%webloader.js%]

@@ -1,0 +1,10 @@
+parameters:
+    level: max
+    paths:
+        - app
+        - tests
+    ignoreErrors:
+        - '#Call to an undefined method#'
+    scanFiles:
+        - %currentWorkingDirectory%/vendor/autoload.php
+    tmpDir: %rootDir%/temp/phpstan

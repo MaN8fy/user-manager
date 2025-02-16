@@ -1,0 +1,41 @@
+{block |strip}
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+  <head>
+    <title>{$title|firstUpper|striptags}</title>
+    <meta charset="utf-8">
+    <meta name="description" content="{$description}">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+    <link rel="shortcut icon" href="{$basePath}/images/logo/favicon.ico" type="image/x-icon">
+
+    {control headerCss}
+
+    {block head}{/block}
+  </head>
+
+  <body>
+    <header>
+      
+    </header>
+    <main>
+      {snippet flashMsg}
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} fade show" role="alert">
+          <i class="fa fa-{$flash->type == 'error' ? 'ban' : $flash->type } me-2"></i>
+          {$flash->message}
+          <button type="button" class="btn btn-close close float-end p-0 shadow-none" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {/snippet}
+      <div class="container-fluid">
+        {include content}
+      </div>
+    </main>
+    <footer>
+
+    </footer>
+    {control footerJs}
+    {block script}{/block}
+
+  </body>
+</html>
+{/block}

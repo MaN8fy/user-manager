@@ -1,0 +1,54 @@
+services:
+  nginx-proxy:
+    container_name: users-nginx-proxy-1
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./.docker/nginx-proxy/conf/custom_proxy_settings.conf:/etc/nginx/proxy.conf
+  php:
+    container_name: users-php-1
+    build: .docker/php
+    volumes:
+      - ./:/var/www/html
+    command: sh -c "composer install --optimize-autoloader && php -S 0.0.0.0:80 -t www/"
+    environment:
+      - VIRTUAL_HOST=*.users.localhost,users.localhost
+      - APPLICATION_ENV=LOCAL
+  database:
+    container_name: users-database-1
+    image: mysql:8.3.0
+    volumes:
+      - ./.docker/mysql/autoInitDb:/docker-entrypoint-initdb.d:cached,ro
+      - ./.docker/mysql/data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=0
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: users
+      TZ: Europe/Prague
+    ports:
+      - 3306:3306
+  adminer:
+    container_name: users-adminer-1
+    image: adminer:latest
+    environment:
+      - VIRTUAL_HOST=adminer.localhost
+      - VIRTUAL_PORT=8080
+  node:
+    container_name: users-node-1
+    build: .docker/node
+    volumes:
+      - ./:/var/www/html
+    command: less-watch-compiler www/less/compile www/css
+  mailpit:
+    image: axllent/mailpit
+    volumes:
+      - ./.docker/mailpit/data:/data
+    environment:
+      - VIRTUAL_HOST=mail.localhost
+      - VIRTUAL_PORT=8025
+      - MP_MAX_MESSAGES=1000
+      - MP_DATABASE=/data/mailpit.db

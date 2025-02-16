@@ -1,0 +1,14 @@
+  parameters:
+    database:
+      driver: mysql
+      host: users-database-1
+      database: users
+      user: users
+      password: 'admin'
+      profiler: true
+    smtp:
+      host: 'users-mailpit-1'
+      email: 'test-local@users.cz'
+      port: 1025
+      username: ''
+      password: ''

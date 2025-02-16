@@ -1,0 +1,8 @@
+  parameters:
+    database:
+      driver: mysql
+      host: users-database-devel
+      database: users
+      user: users
+      password: 'admin'					
+      profiler: true

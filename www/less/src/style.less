@@ -1,0 +1,86 @@
+.logo-title {
+  font-size: 2em;
+  font-weight: 800;
+  color: @dark;
+  span {
+    color: @primary;
+  }
+}
+
+.btn.rounded-pill {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.stats-title {
+  font-size: 1.5em;
+  font-weight: 800;
+}
+
+.form-control {
+  border: none;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+  &:focus {
+    border-color: var(--bs-border-color);
+  }
+
+}
+
+.form-floating {
+  font-size: 1.1rem;
+  flex-wrap: wrap;
+  label {
+    padding: 1.75rem 0.3rem;
+    color: @secondary;
+    font-weight: bold;
+    &::after {
+      background-color: transparent;
+    }
+  }
+
+  .form-control {
+    padding: 1.75rem 0.4rem;
+    font-weight: bold;
+  }
+
+  .form-control:has(~ .error) {
+    border-color: @danger !important;
+  }
+
+  &:focus .form-control, &:focus-within .form-control, .form-control:not(:placeholder-shown) {
+    border-color: var(--bs-border-color-filled);
+    padding-bottom: 0px;
+  }
+
+  &:focus label, &:focus-within label, .form-control:not(:placeholder-shown) ~ label {
+    padding: 1.25rem 0.3rem;
+    font-size: 0.95rem;
+    color: @secondary !important;
+    &::after {
+      background-color: transparent;
+    }
+  }
+
+  .error {
+    color: @danger;
+    font-size: 0.85rem;
+    padding: 0.2rem 0.45rem;
+  }  
+}
+  
+.form-check {
+  input, input:focus {
+    border-color: @warning;
+    border-width: 2px;
+    &:active, &:checked {
+      @success-no-hash: replace(@success, '#', '');
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23@{success-no-hash}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+      border-color: @success;
+      background-color: transparent;
+    }
+  }
+}
+
+.form-control:focus, .form-check-input:focus {
+  box-shadow: none;
+}

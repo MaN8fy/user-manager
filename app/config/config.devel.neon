@@ -3,6 +3,6 @@
       driver: mysql
       host: users-database-devel
       database: users
-      user: users
+      user: admin
       password: 'admin'					
       profiler: true

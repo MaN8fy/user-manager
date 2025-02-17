@@ -42,6 +42,10 @@
 	services:
 		database: @database.default
 		- App\Router\RouterFactory::createRouter
+		- App\Security\UserAuthenticator
+		security.userAuthenticator: @App\Security\UserAuthenticator
+		userModel: App\Model\UserModel
+		userRepository: App\Model\UserRepository
 		# Components factory
 		HeaderFactory:
 			implement: IHeaderCssFactory

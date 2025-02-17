@@ -1,0 +1,212 @@
+// BOOTSTRAP SETTINGS
+:root, [data-bs-theme=light], [data-bs-theme=dark] {
+  --bs-font-sans-serif: 'Intern', sans-serif;
+  --bs-btn-focus-box-shadow: none;
+}
+
+.navbar {
+  --bs-navbar-toggler-focus-width: 0;
+  --bs-navbar-toggler-border-color: transparent;
+  --bs-navbar-toggler-padding-x: 0;
+}
+
+// základní barvy
+@background: #081016;
+@primary: #25c972;
+@primary-rgb: 37, 201, 114;
+@secondary: #c0c0c0;
+@secondary-rgb: 247, 209, 138;
+@success: #25c972;
+@success-rgb: 37, 201, 114;
+@info: #6edff6;
+@info-rgb: 110, 223, 246;
+@warning: #f7d18a;
+@warning-rgb: 247, 209, 138;
+@danger: #c25649;
+@danger-rgb: 194, 86, 73;
+@light: #f8f9fa;
+@light-rgb: 248, 249, 250;
+@dark: #dee2e6;
+@dark-rgb: 222, 226, 230;
+
+[data-bs-theme=dark] {
+  --bs-body-color: @dark;
+  --bs-body-color-rgb: @dark-rgb;
+  --bs-body-bg: @background;
+  --bs-body-bg-rgb: 9, 14, 18;
+  --bs-emphasis-color: #fff;
+  --bs-emphasis-color-rgb: 255, 255, 255;
+  --bs-primary: @primary;
+  --bs-primary-rgb: @primary-rgb;
+  --bs-secondary: @secondary;
+  --bs-secondary-rgb: @secondary-rgb;
+  --bs-success: @success;
+  --bs-success-rgb: @success-rgb;
+  --bs-info: @info;
+  --bs-info-rgb: @info-rgb;
+  --bs-warning: @warning;
+  --bs-warning-rgb: @warning-rgb;
+  --bs-danger: @danger;
+  --bs-danger-rgb: @danger-rgb;
+  --bs-secondary-color: rgba(222, 226, 230, 0.75);
+  --bs-secondary-color-rgb: 222, 226, 230;
+  --bs-secondary-bg: #0d151b;
+  --bs-secondary-bg-rgb: 13, 21, 27;
+  --bs-tertiary-color: rgba(222, 226, 230, 0.5);
+  --bs-tertiary-color-rgb: 222, 226, 230;
+  --bs-tertiary-bg: #2b3035;
+  --bs-tertiary-bg-rgb: 43, 48, 53;
+  --bs-primary-text: @primary;
+  --bs-primary-text-rgb: @primary-rgb;
+  --bs-secondary-text: @secondary;
+  --bs-secondary-text-rgb: @secondary-rgb;
+  --bs-success-text: @success;
+  --bs-success-text-rgb: @success-rgb;
+  --bs-info-text: @info;
+  --bs-info-text-rgb: @info-rgb;
+  --bs-warning-text: @warning;
+  --bs-warning-text-rgb: @warning-rgb;
+  --bs-danger-text: @danger;
+  --bs-danger-text-rgb: @danger-rgb;
+  --bs-light-text: @light;
+  --bs-light-text-rgb: @light-rgb;
+  --bs-dark-text: @dark;
+  --bs-dark-text-rgb: @dark-rgb;
+  --bs-primary-text-emphasis: @primary;
+  --bs-primary-text-emphasis-rgb: @primary-rgb;
+  --bs-secondary-text-emphasis: @secondary;
+  --bs-secondary-text-emphasis-rgb: @secondary-rgb;
+  --bs-success-text-emphasis: @success;
+  --bs-success-text-emphasis-rgb: @success-rgb;
+  --bs-info-text-emphasis: @info;
+  --bs-info-text-emphasis-rgb: @info-rgb;
+  --bs-warning-text-emphasis: @warning;
+  --bs-warning-text-emphasis-rgb: @warning-rgb;
+  --bs-danger-text-emphasis: @danger;
+  --bs-danger-text-emphasis-rgb: @danger-rgb;
+  --bs-light-text-emphasis: @light;
+  --bs-light-text-emphasis-rgb: @light-rgb;
+  --bs-dark-text-emphasis: @dark;
+  --bs-dark-text-emphasis-rgb: @dark-rgb;
+  --bs-primary-bg-subtle: #031633;
+  --bs-secondary-bg-subtle: #161719;
+  --bs-success-bg-subtle: #051b11;
+  --bs-info-bg-subtle: #032830;
+  --bs-warning-bg-subtle: #332701;
+  --bs-danger-bg-subtle: #2c0b0e;
+  --bs-light-bg-subtle: #090e12;
+  --bs-dark-bg-subtle: #1a1d20;
+  --bs-primary-border-subtle: #084298;
+  --bs-secondary-border-subtle: #41464b;
+  --bs-success-border-subtle: #0f5132;
+  --bs-info-border-subtle: #087990;
+  --bs-warning-border-subtle: #997404;
+  --bs-danger-border-subtle: #842029;
+  --bs-light-border-subtle: #495057;
+  --bs-dark-border-subtle: #090e12;
+  --bs-heading-color: inherit;
+  --bs-link-color: @primary;
+  --bs-link-hover-color: lighten(@primary, 10%);
+  --bs-link-color-rgb: @primary-rgb;
+  --bs-link-hover-color-rgb: 51, 217, 130;
+  --bs-code-color: #e685b5;
+  --bs-highlight-color: @dark;
+  --bs-highlight-bg: #664d03;
+  --bs-border-color: #495057;
+  --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
+  --bs-form-valid-color: @success;
+  --bs-form-valid-border-color: @success;
+  --bs-form-invalid-color: @danger;
+  --bs-form-invalid-border-color: @danger;
+  
+  .form-control {
+    --bs-border-radius: 0;
+    --bs-border-width: 3px;
+    --bs-border-color: @warning;
+    --bs-border-color-filled: @success;
+    &:required {
+      --bs-border-color: @warning;
+    }
+
+  }
+
+  // Button styles
+  .btn {
+    --bs-btn-padding-x: 1rem;
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-weight: 700;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-border-width: 2px;
+    --bs-btn-border-radius: 8px;
+    transition: color .25s ease-in-out, background-color .25s ease-in-out, border-color .25s ease-in-out, box-shadow .25s ease-in-out;
+  }
+
+  .btn-primary {
+    --bs-btn-color: @primary;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: @primary;
+    --bs-btn-hover-color: @background;
+    --bs-btn-hover-bg: @primary;
+    --bs-btn-hover-border-color: @primary;
+    --bs-btn-focus-shadow-rgb: @primary-rgb;
+    --bs-btn-active-color: @background;
+    --bs-btn-active-bg: darken(@primary, 12%);
+    --bs-btn-active-border-color: darken(@primary, 12%);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: darken(@primary, 12%);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: darken(@primary, 12%);
+  }
+
+  .btn-secondary {
+    --bs-btn-color: @secondary;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: @secondary;;
+    --bs-btn-hover-color: @background;
+    --bs-btn-hover-bg: @secondary;;
+    --bs-btn-hover-border-color: @secondary;;
+    --bs-btn-focus-shadow-rgb: @secondary-rgb;
+    --bs-btn-active-color: @background;
+    --bs-btn-active-bg: darken(@secondary;, 12%);
+    --bs-btn-active-border-color: darken(@secondary;, 12%);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: darken(@secondary;, 12%);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: darken(@secondary;, 12%);
+  }
+
+  .btn-success {
+    --bs-btn-color: @success;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: @success;;
+    --bs-btn-hover-color: @background;
+    --bs-btn-hover-bg: @success;;
+    --bs-btn-hover-border-color: @success;;
+    --bs-btn-focus-shadow-rgb: @success-rgb;
+    --bs-btn-active-color: @background;
+    --bs-btn-active-bg: darken(@success;, 12%);
+    --bs-btn-active-border-color: darken(@success;, 12%);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: darken(@success;, 12%);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: darken(@success;, 12%);
+  }
+
+  .btn-danger {
+    --bs-btn-color: @danger;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: @danger;;
+    --bs-btn-hover-color: @background;
+    --bs-btn-hover-bg: @danger;;
+    --bs-btn-hover-border-color: @danger;;
+    --bs-btn-focus-shadow-rgb: @danger-rgb;  
+    --bs-btn-active-color: @background;
+    --bs-btn-active-bg: darken(@danger;, 12%);
+    --bs-btn-active-border-color: darken(@danger;, 12%);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: darken(@danger;, 12%);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: darken(@danger;, 12%);
+  }
+}

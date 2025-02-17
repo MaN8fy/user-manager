@@ -3,7 +3,7 @@
       driver: mysql
       host: users-database-1
       database: users
-      user: users
+      user: admin
       password: 'admin'
       profiler: true
     smtp:

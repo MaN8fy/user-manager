@@ -25,6 +25,9 @@ class HomepagePresenter extends BasePresenter
     public function beforeRender(): void
     {
         parent::beforeRender();
+        if (!$this->user->isLoggedIn()) {
+            $this->redirect("Sign:in");
+        }
     }
 
     /**
@@ -34,5 +37,19 @@ class HomepagePresenter extends BasePresenter
      */
     public function renderDefault(): void
     {
+    }
+
+    /**
+     * renderDetail
+     *
+     * @param int User ID
+     * @return void
+     */
+    public function renderDetail(int $userId = null): void
+    {
+        if (!$userId) {
+            $this->flashMessage("Missing user ID", "warning");
+            $this->redirect("default");
+        }
     }
 }

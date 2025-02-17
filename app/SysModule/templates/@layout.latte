@@ -26,6 +26,33 @@
           <button type="button" class="btn btn-close close float-end p-0 shadow-none" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       {/snippet}
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggler">
+            <a class="navbar-brand" href="{plink Homepage:default}">User manager</a>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              {if $user->isLoggedIn()}
+                <li>
+                  <a n:class="nav-link, isLinkCurrent() && $user->id == $_GET['userId'] ? active" n:href="Homepage:detail $user->id">{$user->getIdentity()->data["username"]}</a>
+                </li>
+                <li class="nav-item">
+                  <a n:class="nav-link, isLinkCurrent() ? active" n:href="Sign:out">Sign out</a>
+                </li>
+              {else}
+                <li class="nav-item">
+                  <a n:class="nav-link, isLinkCurrent() ? active" n:href="Sign:in">Sign in</a>
+                </li>
+                <li class="nav-item">
+                  <a n:class="nav-link, isLinkCurrent() ? active" n:href="Sign:up">Sign up</a>
+                </li>
+              {/if}
+            </ul>
+          </div>
+        </div>
+      </nav>
       <div class="container-fluid">
         {include content}
       </div>

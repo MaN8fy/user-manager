@@ -26,8 +26,8 @@ abstract class GlobalPresenter extends \Nette\Application\UI\Presenter
     public string $keywords = "";
 
     /**
-   * @var \IHeaderCssFactory
-   */
+     * @var \IHeaderCssFactory
+     */
     private \IHeaderCssFactory $headerFactory;
 
   /**
@@ -36,23 +36,29 @@ abstract class GlobalPresenter extends \Nette\Application\UI\Presenter
     private \IFooterJsFactory $footerFactory;
 
   /**
-   *
    * @var \Nette\DI\Container
    */
     protected $container;
 
     /**
+     * @var \Nette\Database\Explorer
+     */
+    protected \Nette\Database\Explorer $db;
+
+    /**
      * BasePresenter constructor
      *
-     * @param \Nette\DI\Container $container
-     * @param \IHeaderCssFactory  $headerFactory
-     * @param \IFooterJsFactory   $footerFactory
+     * @param \Nette\DI\Container      $container
+     * @param \IHeaderCssFactory       $headerFactory
+     * @param \IFooterJsFactory        $footerFactory
+     * @param \Nette\Database\Explorer $db
      */
-    public function __construct(\Nette\DI\Container $container, \IHeaderCssFactory $headerFactory, \IFooterJsFactory $footerFactory)
+    public function __construct(\Nette\DI\Container $container, \IHeaderCssFactory $headerFactory, \IFooterJsFactory $footerFactory, \Nette\Database\Explorer $db)
     {
         $this->container = $container;
         $this->headerFactory = $headerFactory;
         $this->footerFactory = $footerFactory;
+        $this->db = $db;
         parent::__construct();
     }
 

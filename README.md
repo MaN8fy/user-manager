@@ -18,6 +18,9 @@ Recruitment task for a job position.<br>
 - [adminer](http://adminer.localhost/)
 - [Fake SMTP mail receiver - MailPit](http://mail.localhost/)
 
+### Usage
+- all current users have set 'admin' as default password
+
 ### Adminer login
 - MYSQL_DATABASE: database
 - MYSQL_USER: admin

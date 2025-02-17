@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SysModule\Presenters;
+namespace App\PublicModule\Presenters;
 
 use App\Components\Factories\CustomForm;
 use Nette\Application\UI\Form;
@@ -39,7 +39,7 @@ class SignPresenter extends BasePresenter
     public function renderIn(): void
     {
         if ($this->user->isLoggedIn()) {
-            $this->redirect("Homepage:default");
+            $this->redirect(":Sys:Homepage:default");
         }
     }
 
@@ -51,7 +51,7 @@ class SignPresenter extends BasePresenter
     public function renderUp(): void
     {
         if ($this->user->isLoggedIn()) {
-            $this->redirect("Homepage:default");
+            $this->redirect(":Sys:Homepage:default");
         }
     }
 
@@ -63,7 +63,7 @@ class SignPresenter extends BasePresenter
     public function actionOut(): void
     {
         $this->user->logout();
-        $this->redirect("Sign:in");
+        $this->redirect(":Public:Sign:in");
     }
 
     /**
@@ -122,7 +122,7 @@ class SignPresenter extends BasePresenter
             $this->flashMessage('Something went wrong while saving. Try again later.', 'danger');
             $this->redirect('this');
         }
-        $this->redirect('Sign:in');
+        $this->redirect(':Public:Sign:in');
     }
 
     /**
@@ -158,15 +158,19 @@ class SignPresenter extends BasePresenter
     {
         try {
             $this->user->login($values['username'], $values['password']);
-          } catch (\Nette\Security\AuthenticationException $e) {
+            if ($values['remember']) {
+                $loginExpiration = $this->container->getParameters()['login_expiration'];
+                $this->user->setExpiration($loginExpiration);
+            }
+        } catch (\Nette\Security\AuthenticationException $e) {
             $this->flashMessage('Invalid credentials.', 'danger');
             $this->redirect('this');
-          } catch (\Exception $e) {
+        } catch (\Exception $e) {
             Debugger::log($e, \Tracy\ILogger::ERROR);
-            
+
             $this->flashMessage('Something went wrong. Try again later.', 'danger');
             $this->redirect('this');
-          }
-        $this->redirect('Homepage:default');
+        }
+        $this->redirect(':Sys:Homepage:default');
     }
 }

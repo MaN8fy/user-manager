@@ -25,6 +25,8 @@ final class RouterFactory
 
         $router->withModule('Sys')
             ->addRoute('<presenter>/<action>', 'Homepage:default');
+        $router->withModule('Public')
+            ->addRoute('public/<presenter>/<action>', 'Homepage:default');
         return $router;
     }
 }

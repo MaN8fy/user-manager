@@ -26,7 +26,7 @@ class HomepagePresenter extends BasePresenter
     {
         parent::beforeRender();
         if (!$this->user->isLoggedIn()) {
-            $this->redirect("Sign:in");
+            $this->redirect(":Public:Sign:in");
         }
     }
 

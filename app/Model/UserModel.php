@@ -19,6 +19,11 @@ class UserModel
     private UserRepository $userRepository;
 
     /**
+     * @var LoginRepository
+     */
+    private LoginRepository $loginRepository;
+
+    /**
      * @var Passwords
      */
     private Passwords $passwords;
@@ -35,13 +40,15 @@ class UserModel
     /**
      * __construct
      *
-     * @param  UserRepository $userRepository
-     * @param  Passwords      $passwords
+     * @param  UserRepository  $userRepository
+     * @param LoginRepository $loginRepository
+     * @param  Passwords       $passwords
      * @return void
      */
-    public function __construct(UserRepository $userRepository, Passwords $passwords)
+    public function __construct(UserRepository $userRepository, LoginRepository $loginRepository, Passwords $passwords)
     {
         $this->userRepository = $userRepository;
+        $this->loginRepository = $loginRepository;
         $this->passwords = $passwords;
     }
 
@@ -66,13 +73,28 @@ class UserModel
     }
 
     /**
+     * Login user
+     *
+     * @param string $username
+     * @param string $password
+     * @return SimpleIdentity
+     */
+    public function loginUser(string $username, string $password): SimpleIdentity
+    {
+        $user = $this->authenticateUser($username, $password);
+        $this->logLogin($user->getId());
+
+        return $user;
+    }
+
+    /**
      * authenticateUser
      *
      * @param  string $username
      * @param  string $password
      * @return SimpleIdentity
      */
-    public function authenticateUser(string $username, string $password): SimpleIdentity
+    private function authenticateUser(string $username, string $password): SimpleIdentity
     {
         $user = $this->userRepository->getByUsername($username);
 
@@ -85,6 +107,21 @@ class UserModel
             $user->role,
             ['firstname' => $user->firstname, 'lastname' => $user->lastname, 'username' => $user->username, 'email' => $user->email]
         );
+    }
+
+    /**
+     * Log user's login
+     *
+     * @param integer $userId
+     * @return void
+     */
+    private function logLogin(int $userId): void
+    {
+        $this->loginRepository->insert([
+        'user_id' => $userId,
+        'ip_address' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+        'login_time' => new \DateTime(),
+        ]);
     }
 
     /**

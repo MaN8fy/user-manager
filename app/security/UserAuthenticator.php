@@ -35,6 +35,6 @@ class UserAuthenticator implements Authenticator
      */
     public function authenticate(string $username, string $password): SimpleIdentity
     {
-        return $this->userModel->authenticateUser($username, $password);
+        return $this->userModel->loginUser($username, $password);
     }
 }

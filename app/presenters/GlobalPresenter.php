@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Forms\AdminForm;
+use App\Model\UserModel;
 
 /**
  * Description of GlobalPresenter
@@ -46,6 +46,11 @@ abstract class GlobalPresenter extends \Nette\Application\UI\Presenter
     protected \Nette\Database\Explorer $db;
 
     /**
+     * @var UserModel
+     */
+    protected UserModel $userModel;
+
+    /**
      * BasePresenter constructor
      *
      * @param \Nette\DI\Container      $container
@@ -72,6 +77,9 @@ abstract class GlobalPresenter extends \Nette\Application\UI\Presenter
 
         $this->title = 'Users';
         $this->description = 'Users manager';
+
+        $this->userModel = $this->container->createService('userModel');
+        $this->template->user = $this->user;
     }
 
     /**

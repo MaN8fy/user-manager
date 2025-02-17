@@ -18,7 +18,8 @@
 		"nette/security": "*",
 		"nette/utils": "*",
 		"latte/latte": "*",
-		"tracy/tracy": "*"
+		"tracy/tracy": "*",
+		"ublaboo/datagrid": "^6.10"
 	},
 	"require-dev": {
 		"nette/tester": "*",

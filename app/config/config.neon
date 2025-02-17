@@ -1,4 +1,5 @@
 	parameters:
+		login_expiration: '14 days'
 		smtp:
 			host: ''
 			username: ''
@@ -46,6 +47,7 @@
 		security.userAuthenticator: @App\Security\UserAuthenticator
 		userModel: App\Model\UserModel
 		userRepository: App\Model\UserRepository
+		loginRepository: App\Model\LoginRepository
 		# Components factory
 		HeaderFactory:
 			implement: IHeaderCssFactory

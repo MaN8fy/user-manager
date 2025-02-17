@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SysModule\Presenters;
+namespace App\PublicModule\Presenters;
 
 /**
  * Description of BasePresenter

@@ -32,13 +32,13 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggler">
-            <a class="navbar-brand" href="{plink Homepage:default}">User manager</a>
+            <span class="navbar-brand">User manager</span>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li>
-                <a n:class="nav-link, isLinkCurrent() && $user->id == $_GET['userId'] ? active" n:href="Homepage:detail $user->id">{$user->getIdentity()->username}</a>
+              <li class="nav-item">
+                <a n:class="nav-link, isLinkCurrent() ? active" n:href=":Public:Sign:in">Sign in</a>
               </li>
               <li class="nav-item">
-                <a n:class="nav-link, isLinkCurrent() ? active" n:href=":Public:Sign:out">Sign out</a>
+                <a n:class="nav-link, isLinkCurrent() ? active" n:href=":Public:Sign:up">Sign up</a>
               </li>
             </ul>
           </div>

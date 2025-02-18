@@ -1,5 +1,4 @@
 .docker/mysql/data
-.docker/mailpit/data
 /log/*
 /temp/*
 /vendor/

@@ -101,12 +101,21 @@ class CustomFormRenderer extends DefaultFormRenderer
         } elseif ($control instanceof \Nette\Forms\Controls\RadioList) {
             $type = 'radio';
         }
+
         $pair = $this->getWrapper('pair ' . $type);
-        $pair->addHtml($this->renderControl($control));
-        $pair->addHtml($this->renderLabel($control));
+
+        if ($control instanceof \Nette\Forms\Controls\RadioList) {
+            $pair->addHtml($this->renderLabel($control));
+            $pair->addHtml($this->renderRadioList($control));
+        } else {
+            $pair->addHtml($this->renderControl($control));
+            $pair->addHtml($this->renderLabel($control));
+        }
+
         $pair->class($this->getValue($control->isRequired() ? 'pair .required' : 'pair .optional'), true);
         $pair->class($control->hasErrors() ? $this->getValue('pair .error') : null, true);
         $pair->class($control->getOption('class'), true);
+
         if (++$this->counter % 2) {
             $pair->class($this->getValue('pair .odd'), true);
         }
@@ -114,6 +123,36 @@ class CustomFormRenderer extends DefaultFormRenderer
         $pair->id = $control->getOption('id');
         return $pair->render(0);
     }
+
+    private function renderRadioList(\Nette\Forms\Controls\RadioList $control): Html
+    {
+        $container = Html::el('div')->class('form-radio-group');
+        $selectedValue = $control->getValue();
+
+        foreach ($control->getItems() as $key => $label) {
+            $input = Html::el('input')
+                ->type('radio')
+                ->name($control->getHtmlName())
+                ->id($control->getHtmlId() . '-' . $key)
+                ->value($key)
+                ->class('form-check-input');
+
+            if ($selectedValue === $key) {
+                $input->checked(true);
+            }
+
+            $labelEl = Html::el('label')
+                ->for($input->id)
+                ->class('form-check-label')
+                ->setText($label);
+
+            $wrapper = Html::el('div')->class('form-check')->addHtml($input)->addHtml($labelEl);
+            $container->addHtml($wrapper);
+        }
+        return $container;
+    }
+
+
 
     /**
      * render errors

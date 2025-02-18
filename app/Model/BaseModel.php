@@ -50,7 +50,7 @@ abstract class BaseModel
       * Setter
       *
       * @param string $name
-      * @param mixed $value
+      * @param mixed  $value
       * @return void
       */
     public function __set(string $name, mixed $value): void
@@ -63,14 +63,14 @@ abstract class BaseModel
      * Initialize object
      *
      * @param integer $id
-     * @return self //použít static od php 8.0 pro přesnější doporučení v IDE
+     * @return self|null //použít static od php 8.0 pro přesnější doporučení v IDE
      */
-    public function initID(int $id): self //použít static od php 8.0 pro přesnější doporučení v IDE
+    public function initID(int $id): ?self //použít static od php 8.0 pro přesnější doporučení v IDE
     {
         $this->id = $id;
         $data = $this->repository->getById($id);
         $this->data = $data ? $data->toArray() : [];
-        return $this;
+        return $this->data ? $this : null;
     }
 
     /**
@@ -81,5 +81,16 @@ abstract class BaseModel
     public function toArray(): array
     {
         return $this->data;
+    }
+
+    /**
+     * Update
+     *
+     * @param array $data
+     * @return void
+     */
+    public function update(array $data)
+    {
+        $this->repository->update($this->id, $data);
     }
 }

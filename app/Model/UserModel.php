@@ -81,7 +81,7 @@ final class UserModel extends BaseModel
         if ($this->authenticateUser($username, $password)) {
             $user = $this->repository->getByUsername($username);
             if ($user->deactivated) {
-              throw new \Nette\Security\AuthenticationException('Your account has been suspended.');
+                throw new \Nette\Security\AuthenticationException('Your account has been suspended.');
             }
             $user = new SimpleIdentity(
                 $user->id,
@@ -132,15 +132,39 @@ final class UserModel extends BaseModel
     /**
      * getUserList
      *
+     * @param integer|null $page
+     * @param integer|null $itemsPerPage
+     * @param string       $order
+     * @param string       $direction
      * @return array
      */
-    public function getUserList(): array
+    public function getUserList(?int $page = null, ?int $itemsPerPage = null, string $order = 'id', string $direction = 'ASC'): array
     {
-        return $this->repository->getAll();
+        if ($itemsPerPage !== null && $page !== null) {
+            $offset = ($page - 1) * $itemsPerPage;
+        } else {
+            $offset = null;
+        }
+        return $this->repository->getAll($order, $direction, $itemsPerPage, $offset);
     }
 
+    /**
+     * Deactivate user
+     *
+     * @return void
+     */
     public function deactivate(): void
     {
         $this->repository->deactivate($this->id);
+    }
+
+    /**
+     * Activate user
+     *
+     * @return void
+     */
+    public function activate(): void
+    {
+        $this->repository->activate($this->id);
     }
 }

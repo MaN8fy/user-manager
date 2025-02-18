@@ -58,4 +58,15 @@ final class UserRepository extends BaseRepository
     {
         $this->table->wherePrimary($id)->update(['deactivated' => new \DateTime()]);
     }
+
+    /**
+     * deactivate user
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function activate(int $id): void
+    {
+        $this->table->wherePrimary($id)->update(['deactivated' => null]);
+    }
 }

@@ -14,8 +14,10 @@ Recruitment task for a job position.<br>
 ### Project is running on:
 - [Users front-end](http://users.localhost)
 
-### Other running services (Irrelevant)
+### Database:
 - [adminer](http://adminer.localhost/)
+
+### Other running services (Irrelevant)
 - [Fake SMTP mail receiver - MailPit](http://mail.localhost/)
 
 ### Usage

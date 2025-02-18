@@ -47,4 +47,15 @@ final class UserRepository extends BaseRepository
             ->where('email', $email)
             ->fetch();
     }
+
+    /**
+     * deactivate user
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function deactivate(int $id): void
+    {
+        $this->table->wherePrimary($id)->update(['deactivated' => new \DateTime()]);
+    }
 }

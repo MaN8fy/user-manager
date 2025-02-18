@@ -19,6 +19,9 @@ abstract class BaseRepository
      */
     protected Explorer $database;
 
+    /**
+     * @var Selection
+     */
     protected Selection $table;
 
     /**
@@ -53,7 +56,7 @@ abstract class BaseRepository
      * @param integer $offset
      * @return ActiveRow[]
      */
-    public function getAll(string $order = 'id', string $direction = 'ASC', int $limit = 0, int $offset = 0): array
+    public function getAll(string $order = 'id', string $direction = 'ASC', int $limit = null, int $offset = null): array
     {
         return $this->table->order($order . ' ' . $direction)->limit($limit, $offset)->fetchAll();
     }

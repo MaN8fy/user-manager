@@ -35,7 +35,7 @@
             <a class="navbar-brand" href="{plink Homepage:default}">User manager</a>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li>
-                <a n:class="nav-link, isLinkCurrent() && $user->id == $_GET['userId'] ? active" n:href="Homepage:detail $user->id">{$user->getIdentity()->username}</a>
+                <a n:class="nav-link, isLinkCurrent() && $user->id == $_GET['id'] ? active" n:href="Homepage:edit $user->id">{$user->getIdentity()->username}</a>
               </li>
               <li class="nav-item">
                 <a n:class="nav-link, isLinkCurrent() ? active" n:href=":Public:Sign:out">Sign out</a>

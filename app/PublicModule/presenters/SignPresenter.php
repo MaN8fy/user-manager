@@ -163,7 +163,7 @@ class SignPresenter extends BasePresenter
                 $this->user->setExpiration($loginExpiration);
             }
         } catch (\Nette\Security\AuthenticationException $e) {
-            $this->flashMessage('Invalid credentials.', 'danger');
+            $this->flashMessage($e->getMessage(), 'danger');
             $this->redirect('this');
         } catch (\Exception $e) {
             Debugger::log($e, \Tracy\ILogger::ERROR);

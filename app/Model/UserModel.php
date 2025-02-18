@@ -10,14 +10,11 @@ use Nette\Security\SimpleIdentity;
 
 /**
  * UserModel
+ *
+ * @extends BaseModel<UserRepository>
  */
-class UserModel
+final class UserModel extends BaseModel
 {
-    /**
-     * @var UserRepository
-     */
-    private UserRepository $userRepository;
-
     /**
      * @var LoginRepository
      */
@@ -31,7 +28,7 @@ class UserModel
     /**
      * @var array
      */
-    public static $roles = [
+    public static array $roles = [
         'read' => 'read',
         'write' => 'write',
         'delete' => 'delete',
@@ -40,14 +37,14 @@ class UserModel
     /**
      * __construct
      *
-     * @param  UserRepository  $userRepository
+     * @param UserRepository  $repository
      * @param LoginRepository $loginRepository
      * @param  Passwords       $passwords
      * @return void
      */
     public function __construct(UserRepository $userRepository, LoginRepository $loginRepository, Passwords $passwords)
     {
-        $this->userRepository = $userRepository;
+        parent::__construct($userRepository);
         $this->loginRepository = $loginRepository;
         $this->passwords = $passwords;
     }
@@ -62,7 +59,7 @@ class UserModel
     {
         $role = $data['role'] ?? self::$roles["read"];
 
-        return $this->userRepository->insert([
+        return $this->repository->insert([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'username' => $data['username'],
@@ -81,9 +78,21 @@ class UserModel
      */
     public function loginUser(string $username, string $password): SimpleIdentity
     {
-        $user = $this->authenticateUser($username, $password);
-        $this->logLogin($user->getId());
+        if ($this->authenticateUser($username, $password)) {
+            $user = $this->repository->getByUsername($username);
+            if ($user->deactivated) {
+              throw new \Nette\Security\AuthenticationException('Your account has been suspended.');
+            }
+            $user = new SimpleIdentity(
+                $user->id,
+                $user->role,
+                ['firstname' => $user->firstname, 'lastname' => $user->lastname, 'username' => $user->username, 'email' => $user->email]
+            );
+        } else {
+            throw new \Nette\Security\AuthenticationException('Invalid credentials.');
+        }
 
+        $this->logLogin($user->getId());
         return $user;
     }
 
@@ -92,21 +101,17 @@ class UserModel
      *
      * @param  string $username
      * @param  string $password
-     * @return SimpleIdentity
+     * @return boolean
      */
-    private function authenticateUser(string $username, string $password): SimpleIdentity
+    public function authenticateUser(string $username, string $password): bool
     {
-        $user = $this->userRepository->getByUsername($username);
+        $user = $this->repository->getByUsername($username);
 
         if (!$user || !$this->passwords->verify($password, $user->password)) {
-            throw new \Nette\Security\AuthenticationException('Invalid credentials.');
+            return false;
         }
 
-        return new SimpleIdentity(
-            $user->id,
-            $user->role,
-            ['firstname' => $user->firstname, 'lastname' => $user->lastname, 'username' => $user->username, 'email' => $user->email]
-        );
+        return true;
     }
 
     /**
@@ -131,6 +136,11 @@ class UserModel
      */
     public function getUserList(): array
     {
-        return $this->userRepository->getAll();
+        return $this->repository->getAll();
+    }
+
+    public function deactivate(): void
+    {
+        $this->repository->deactivate($this->id);
     }
 }

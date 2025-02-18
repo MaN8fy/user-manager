@@ -44,6 +44,7 @@
 		database: @database.default
 		- App\Router\RouterFactory::createRouter
 		- App\Security\UserAuthenticator
+		- App\Security\Authorizator
 		security.userAuthenticator: @App\Security\UserAuthenticator
 		userModel: App\Model\UserModel
 		userRepository: App\Model\UserRepository
